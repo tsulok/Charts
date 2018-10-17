@@ -129,6 +129,7 @@ class BarChartViewController: DemoBaseViewController {
         } else {
             let set = BarChartDataSet(values: yVals, label: "The year 2017")
             set.drawValuesEnabled = false
+            set.roundedEdgesEnabled = true
 
             setup(set)
 

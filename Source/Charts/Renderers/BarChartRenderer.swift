@@ -377,8 +377,14 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             guard viewPortHandler.isInBoundsLeft(barRect.maxX) else { continue }
             guard viewPortHandler.isInBoundsRight(barRect.minX) else { break }
 
+            let bezierPath = UIBezierPath(roundedRect: barRect, cornerRadius: barRect.width / 2)
+            
             context.beginPath()
-            context.addRect(barRect)
+            if dataSet.roundedEdgesEnabled {
+                context.addPath(bezierPath.cgPath)
+            } else {
+                context.addRect(barRect)
+            }
             context.clip()
             context.drawLinearGradient(gradient, start: gradientStart, end: gradientEnd, options: [])
 
@@ -421,7 +427,13 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
 
-            context.fill(barRect)
+            if dataSet.roundedEdgesEnabled {
+                let bezierPath = UIBezierPath(roundedRect: barRect, cornerRadius: barRect.width / 2)
+                context.addPath(bezierPath.cgPath)
+                context.drawPath(using: .fill)
+            } else {
+                context.fill(barRect)
+            }
 
             if drawBorder
             {
@@ -787,7 +799,13 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 
                 setHighlightDrawPos(highlight: high, barRect: barRect)
                 
-                context.fill(barRect)
+                if set.roundedEdgesEnabled {
+                    let bezierPath = UIBezierPath(roundedRect: barRect, cornerRadius: barRect.width / 2)
+                    context.addPath(bezierPath.cgPath)
+                    context.drawPath(using: .fill)
+                } else {
+                  context.fill(barRect)
+                }
             }
         }
     }

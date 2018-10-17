@@ -106,6 +106,8 @@ open class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, BarChartData
     // MARK: - Styling functions and accessors
 
     open var drawBarGradientEnabled = false
+    
+    open var roundedEdgesEnabled: Bool = false
 
     open var gradientPositions: [CGFloat]?
 

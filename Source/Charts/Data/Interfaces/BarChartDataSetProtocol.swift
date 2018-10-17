@@ -41,6 +41,8 @@ public protocol BarChartDataSetProtocol: BarLineScatterCandleBubbleChartDataSetP
     var stackLabels: [String] { get set }
 
     var drawBarGradientEnabled: Bool { get set }
+    
+    var roundedEdgesEnabled: Bool { get set }
 
     var gradientPositions: [CGFloat]? { get set }
 
